@@ -2,11 +2,857 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>성공213 - 콘텐츠 마케팅</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>성공213 - 콘텐츠를 브랜드 자산으로 만드는 마케팅 회사</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+        
+        /* 헤더 및 네비게이션 */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background-color: #2c5aa0;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* 드롭다운 메뉴 */
+        .nav-menu li {
+            position: relative;
+        }
+        
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            min-width: 150px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .nav-menu li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown a {
+            display: block;
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            color: #333;
+            border-radius: 0;
+        }
+        
+        .dropdown a:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown a:hover {
+            background-color: #f8f9fa;
+            color: #2c5aa0;
+            transform: none;
+        }
+        
+        /* 섹션 공통 스타일 */
+        section {
+            min-height: 100vh;
+            padding: 5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        /* 히어로 섹션 */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            margin-top: 0;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #ff6b6b;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+        }
+        
+        /* 회사소개 섹션 */
+        .about {
+            background-color: #f8f9fa;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: #2c5aa0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-text p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+        
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .feature {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* 서비스 섹션 */
+        .services {
+            background: white;
+        }
+        
+        .services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c5aa0;
+            margin-bottom: 3rem;
+        }
+        
+        .service-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 4rem;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .service-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+        
+        /* 고객지원 섹션 */
+        .board {
+            background: #f8f9fa;
+        }
+        
+        .board h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c5aa0;
+            margin-bottom: 3rem;
+        }
+        
+        .board-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            max-width: 800px;
+            margin: 0 auto 4rem auto;
+        }
+        
+        .board-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .board-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2c5aa0;
+        }
+        
+        .board-card p {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+        
+        .board-btn {
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e3f72 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .board-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(44, 90, 160, 0.3);
+        }
+        
+        /* 프리미엄 상담 섹션 */
+        .consultation {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .consultation h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .consultation p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .consultation-info {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+        
+        .consultation-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .consultation-info ul {
+            list-style: none;
+            text-align: left;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .consultation-info li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .consultation-info li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #fff;
+            font-weight: bold;
+        }
+        
+        .consultation-btn {
+            background: white;
+            color: #ff6b6b;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .consultation-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .consultation-btn.disabled {
+            background: rgba(255,255,255,0.5);
+            color: rgba(255,107,107,0.7);
+            cursor: not-allowed;
+        }
+        
+        .quick-inquiry {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            margin: 2rem auto 0 auto;
+        }
+        
+        .quick-inquiry h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .quick-inquiry input,
+        .quick-inquiry textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .quick-inquiry button {
+            background: rgba(255,255,255,0.9);
+            color: #ff6b6b;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-inquiry button:hover {
+            background: white;
+            transform: translateY(-1px);
+        }
+        
+        /* 연락처 안내 섹션 */
+        .contact-info-section {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 2rem;
+        }
+        
+        .contact-info-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .info-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .info-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #3498db;
+        }
+        
+        .info-card p {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* 푸터 */
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        /* 애니메이션 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>성공213</h1>
-    <h2>콘텐츠를 브랜드 자산으로 만드는 마케팅 회사</h2>
-    <p>홈페이지 제작 중입니다...</p>
+    <header>
+        <nav>
+            <div class="logo">성공213</div>
+            <ul class="nav-menu">
+                <li><a href="#home">홈</a></li>
+                <li><a href="#about">회사소개</a></li>
+                <li>
+                    <a href="#services">서비스</a>
+                    <ul class="dropdown">
+                        <li><a href="#service-consulting">컨설팅</a></li>
+                        <li><a href="#service-youtube">유튜브</a></li>
+                        <li><a href="#service-blog">블로그</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#board">고객지원</a>
+                    <ul class="dropdown">
+                        <li><a href="#notice">공지사항</a></li>
+                        <li><a href="#faq">자주 묻는 질문</a></li>
+                        <li><a href="#contact-form">문의하기</a></li>
+                    </ul>
+                </li>
+                <li><a href="#consultation">프리미엄상담</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 홈/히어로 섹션 -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>성공213</h1>
+            <p>콘텐츠를 브랜드 자산으로 만드는 마케팅 회사</p>
+            <a href="#consultation" class="cta-button">프리미엄 상담 신청하기</a>
+        </div>
+    </section>
+
+    <!-- 회사소개 섹션 -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>성공213과 함께하세요</h2>
+                    <p>우리는 단순한 마케팅이 아닌, 콘텐츠를 진정한 브랜드 자산으로 만드는 전문가입니다.</p>
+                    <p>고객의 스토리를 발굴하고, 그것을 가치 있는 콘텐츠로 변환하여 지속 가능한 브랜드 성장을 이끌어냅니다.</p>
+                </div>
+                <div class="about-features">
+                    <div class="feature">
+                        <div class="feature-icon">🎯</div>
+                        <h3>맞춤형 전략</h3>
+                        <p>브랜드별 특성을 분석한 차별화된 마케팅 전략</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">📈</div>
+                        <h3>데이터 기반</h3>
+                        <p>철저한 분석과 측정을 통한 성과 중심 마케팅</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🚀</div>
+                        <h3>지속적 성장</h3>
+                        <p>단기 성과가 아닌 장기적 브랜드 가치 창출</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">💡</div>
+                        <h3>창의적 솔루션</h3>
+                        <p>혁신적 아이디어로 차별화된 콘텐츠 제작</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 서비스 섹션 -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>전문 서비스</h2>
+            
+            <!-- 컨설팅 서비스 -->
+            <div id="service-consulting">
+                <div class="service-card">
+                    <h3>🎯 마케팅 컨설팅</h3>
+                    <p>브랜드 분석부터 전략 수립까지, 체계적인 마케팅 컨설팅을 제공합니다. 시장 분석, 경쟁사 분석, 타겟 고객 설정을 통해 효과적인 마케팅 전략을 수립합니다.</p>
+                    <div style="margin-top: 1.5rem;">
+                        <p><strong>주요 서비스:</strong></p>
+                        <ul style="text-align: left; margin-top: 1rem; color: rgba(255,255,255,0.9);">
+                            <li>브랜드 현황 분석 및 진단</li>
+                            <li>시장 및 경쟁사 분석</li>
+                            <li>마케팅 전략 수립</li>
+                            <li>실행 계획 및 로드맵 제공</li>
+                        </ul>
+                    </div>
+                    <a href="#consultation" class="service-btn">상담 신청</a>
+                </div>
+            </div>
+            
+            <!-- 유튜브 마케팅 -->
+            <div id="service-youtube">
+                <div class="service-card">
+                    <h3>📺 유튜브 마케팅</h3>
+                    <p>영상 콘텐츠 기획부터 채널 운영까지, 유튜브 성공 전략을 제안합니다. 콘텐츠 기획, 영상 제작, 채널 최적화, 구독자 증대 전략을 포함합니다.</p>
+                    <div style="margin-top: 1.5rem;">
+                        <p><strong>주요 서비스:</strong></p>
+                        <ul style="text-align: left; margin-top: 1rem; color: rgba(255,255,255,0.9);">
+                            <li>채널 컨셉 및 콘텐츠 기획</li>
+                            <li>영상 제작 및 편집 가이드</li>
+                            <li>유튜브 SEO 최적화</li>
+                            <li>구독자 증대 전략</li>
+                        </ul>
+                    </div>
+                    <a href="#consultation" class="service-btn">상담 신청</a>
+                </div>
+            </div>
+            
+            <!-- 블로그 콘텐츠 -->
+            <div id="service-blog">
+                <div class="service-card">
+                    <h3>✍️ 블로그 콘텐츠</h3>
+                    <p>SEO 최적화된 고품질 블로그 콘텐츠로 브랜드 신뢰도를 높여드립니다. 키워드 분석, 콘텐츠 기획, 정기적인 포스팅으로 검색 노출을 극대화합니다.</p>
+                    <div style="margin-top: 1.5rem;">
+                        <p><strong>주요 서비스:</strong></p>
+                        <ul style="text-align: left; margin-top: 1rem; color: rgba(255,255,255,0.9);">
+                            <li>키워드 분석 및 콘텐츠 기획</li>
+                            <li>SEO 최적화 글쓰기</li>
+                            <li>정기적인 포스팅 관리</li>
+                            <li>성과 분석 및 개선</li>
+                        </ul>
+                    </div>
+                    <a href="#consultation" class="service-btn">상담 신청</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 고객지원 섹션 -->
+    <section id="board" class="board">
+        <div class="container">
+            <h2>고객 지원</h2>
+            
+            <!-- 공지사항 -->
+            <div id="notice">
+                <div class="board-card">
+                    <h3>📢 공지사항</h3>
+                    <p>성공213의 최신 소식과 중요한 공지사항을 확인하세요. 서비스 업데이트, 이벤트 정보 등을 안내합니다.</p>
+                    <div style="margin-top: 1.5rem; text-align: left;">
+                        <p><strong>최근 공지사항:</strong></p>
+                        <ul style="margin-top: 1rem; color: #666;">
+                            <li>프리미엄 상담 서비스 오픈 예정 (2025.06)</li>
+                            <li>유튜브 마케팅 서비스 업데이트</li>
+                            <li>블로그 콘텐츠 제작 프로세스 개선</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="board-btn">전체 공지사항 보기</a>
+                </div>
+            </div>
+            
+            <!-- 자주 묻는 질문 -->
+            <div id="faq">
+                <div class="board-card">
+                    <h3>❓ 자주 묻는 질문</h3>
+                    <p>고객들이 가장 궁금해하는 질문과 답변을 모았습니다. 빠른 문제 해결을 위해 먼저 확인해보세요.</p>
+                    <div style="margin-top: 1.5rem; text-align: left;">
+                        <p><strong>주요 FAQ:</strong></p>
+                        <ul style="margin-top: 1rem; color: #666;">
+                            <li>프리미엄 상담은 어떻게 신청하나요?</li>
+                            <li>서비스 진행 기간은 얼마나 걸리나요?</li>
+                            <li>계약 및 결제 방법이 궁금해요</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="board-btn">전체 FAQ 보기</a>
+                </div>
+            </div>
+            
+            <!-- 문의하기 -->
+            <div id="contact-form">
+                <div class="board-card">
+                    <h3>💬 문의하기</h3>
+                    <p>궁금한 점이나 협업 제안이 있으시면 언제든 연락해 주세요. 빠른 시간 내에 답변드리겠습니다.</p>
+                    
+                    <!-- 문의 폼 -->
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-top: 2rem; text-align: left;">
+                        <h4 style="color: #2c5aa0; margin-bottom: 1.5rem; text-align: center;">📝 문의사항 작성</h4>
+                        
+                        <form style="max-width: 500px; margin: 0 auto;">
+                            <input type="text" placeholder="회사명 또는 성함 *" required style="width: 100%; padding: 1rem; margin-bottom: 1rem; border: 2px solid #e1e8ed; border-radius: 8px; font-size: 1rem;">
+                            <input type="email" placeholder="이메일 주소 *" required style="width: 100%; padding: 1rem; margin-bottom: 1rem; border: 2px solid #e1e8ed; border-radius: 8px; font-size: 1rem;">
+                            <input type="tel" placeholder="연락처" style="width: 100%; padding: 1rem; margin-bottom: 1rem; border: 2px solid #e1e8ed; border-radius: 8px; font-size: 1rem;">
+                            
+                            <select required style="width: 100%; padding: 1rem; margin-bottom: 1rem; border: 2px solid #e1e8ed; border-radius: 8px; font-size: 1rem;">
+                                <option value="">문의 유형을 선택해주세요 *</option>
+                                <option value="consultation">상담 문의</option>
+                                <option value="service">서비스 문의</option>
+                                <option value="partnership">파트너십 제안</option>
+                                <option value="etc">기타 문의</option>
+                            </select>
+                            
+                            <textarea placeholder="문의 내용을 상세히 적어주세요 *" rows="5" required style="width: 100%; padding: 1rem; margin-bottom: 1rem; border: 2px solid #e1e8ed; border-radius: 8px; font-size: 1rem; resize: vertical;"></textarea>
+                            
+                            <button type="submit" style="background: linear-gradient(135deg, #2c5aa0 0%, #1e3f72 100%); color: white; padding: 1rem 2rem; border: none; border-radius: 25px; font-weight: bold; font-size: 1.1rem; cursor: pointer; width: 100%; transition: all 0.3s ease;">문의 보내기</button>
+                        </form>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem; text-align: left;">
+                        <p><strong>문의 방법:</strong></p>
+                        <ul style="margin-top: 1rem; color: #666;">
+                            <li>이메일: win213er@gmail.com</li>
+                            <li>전화: 070-4048-6213</li>
+                            <li>운영시간: 평일 09:00-18:00</li>
+                        </ul>
+                        
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 10px; margin-top: 1rem; text-align: center;">
+                            <strong>📋 문의 처리 과정</strong><br>
+                            1. 문의 접수 (즉시)<br>
+                            2. 검토 및 분석 (1-2일)<br>
+                            3. 답변 발송 (2-3일 내)<br>
+                            4. 추가 상담 진행 (필요시)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 프리미엄 1:1 상담 섹션 -->
+    <section id="consultation" class="consultation">
+        <div class="container">
+            <h2>프리미엄 1:1 상담</h2>
+            <p>매월 선별된 분들께만 제공하는 특별한 상담 기회<br>브랜드 성장을 위한 맞춤형 전략을 제안해드립니다</p>
+            
+            <div class="consultation-info">
+                <h3>상담 프로세스</h3>
+                <ul>
+                    <li>구글 폼을 통한 사전 질문지 작성</li>
+                    <li>전문가 검토 후 대상자 선별</li>
+                    <li>매월 선택된 분들께 개별 연락</li>
+                    <li>1:1 맞춤형 컨설팅 제공 (60분)</li>
+                </ul>
+            </div>
+            
+            <a href="#" class="consultation-btn disabled">상담 신청 (추후 공개)</a>
+            
+            <div class="quick-inquiry">
+                <h3>💬 간단 문의하기</h3>
+                <p style="font-size: 1rem; margin-bottom: 1rem;">빠른 질문이나 기본 정보가 궁금하시다면</p>
+                <form>
+                    <input type="text" placeholder="회사명 또는 성함" required>
+                    <input type="email" placeholder="이메일 주소" required>
+                    <textarea placeholder="간단한 문의 내용" rows="3" required></textarea>
+                    <button type="submit">문의하기</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 연락처 안내 섹션 -->
+    <section class="contact-info-section">
+        <div class="container">
+            <h2>연락처 안내</h2>
+            <div class="contact-info-grid">
+                <div class="info-card">
+                    <h3>📧 이메일</h3>
+                    <p>win213er@gmail.com</p>
+                    <p style="font-size: 0.9rem; color: #bdc3c7; margin-top: 1rem;">
+                        24시간 언제든 문의 가능<br>
+                        평균 응답시간: 2-3일
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>📞 전화번호</h3>
+                    <p>070-4048-6213</p>
+                    <p style="font-size: 0.9rem; color: #bdc3c7; margin-top: 1rem;">
+                        평일 09:00 - 18:00<br>
+                        점심시간: 12:00 - 13:00
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>📍 주소</h3>
+                    <p>서울시 강서구<br>마곡중앙6로 63, 401호</p>
+                    <p style="font-size: 0.9rem; color: #bdc3c7; margin-top: 1rem;">
+                        지하철 9호선 마곡나루역<br>
+                        도보 5분 거리
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🕐 운영시간</h3>
+                    <p><strong>평일:</strong> 09:00 - 18:00</p>
+                    <p><strong>토요일:</strong> 휴무</p>
+                    <p><strong>일요일:</strong> 휴무</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #bdc3c7;">
+                        점심시간: 12:00 - 13:00<br>
+                        공휴일 휴무
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 성공213. All rights reserved. | 사업자등록번호: 670-27-01974</p>
+    </footer>
+
+    <script>
+        // 부드러운 스크롤 네비게이션
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 스크롤시 네비게이션 활성화
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-menu a').forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href') === `#${current}`) {
+                    a.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
